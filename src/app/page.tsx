@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <div className="min-h-screen relative">
@@ -14,6 +16,24 @@ export default function Home() {
       
       {/* Dark overlay for better readability */}
       <div className="overlay"></div>
+
+      {/* Top Left Logos */}
+      <div className="absolute top-4 left-4 z-20 flex items-center gap-4">
+        <Image
+          src="/srm.webp"
+          alt="SRM Logo"
+          width={60}
+          height={60}
+          className="object-contain"
+        />
+        <Image
+          src="/logo.jpg"
+          alt="ACM Logo"
+          width={60}
+          height={60}
+          className="object-contain"
+        />
+      </div>
 
       {/* Header */}
       <header className="relative z-10 text-center py-12 px-4">
