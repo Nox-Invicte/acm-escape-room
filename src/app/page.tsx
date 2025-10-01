@@ -156,8 +156,94 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [targetDate]);
 
+  // Add smooth scrolling for navigation
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
+
   return (
-    <main className="min-h-screen bg-gray-800 text-white font-sans">
+    <main className="min-h-screen bg-gray-800 text-white font-sans relative">
+      {/* Consistent background image for all sections */}
+      <div 
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/section.jpg)',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/70"></div>
+      </div>
+
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-red-600/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Left side - Logos and ACM SIGAPP */}
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
+                <Image
+                  src="/srm.webp"
+                  alt="SRM Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+                <Image
+                  src="/logo.jpg"
+                  alt="ACM Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
+              </div>
+              <div className="text-white font-bold text-lg">
+                ACM SIGAPP
+              </div>
+            </div>
+            
+            {/* Right side - Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#about" className="text-white relative pb-1 hover:text-white transition-all duration-300 group">
+                About
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#schedule" className="text-white relative pb-1 hover:text-white transition-all duration-300 group">
+                Schedule
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#rules" className="text-white relative pb-1 hover:text-white transition-all duration-300 group">
+                Rules
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+              </a>
+              <a href="#faq" className="text-white relative pb-1 hover:text-white transition-all duration-300 group">
+                FAQ
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+              </a>
+                            <a 
+                href="https://unstop.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 inline-block"
+              >
+                Register Now
+              </a>
+            </div>
+            
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button className="text-white hover:text-red-400 transition-colors duration-200">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       <section className="relative h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
@@ -173,24 +259,6 @@ export default function Home() {
         </div>
         {/* Animated Tech Background */}
         <TechBackground />
-        
-        {/* Top Right Logos */}
-        <div className="absolute top-4 left-4 z-20 flex items-center gap-4">
-          <Image
-            src="/srm.webp"
-            alt="SRM Logo"
-            width={60}
-            height={60}
-            className="object-contain"
-          />
-          <Image
-            src="/logo.jpg"
-            alt="ACM Logo"
-            width={60}
-            height={60}
-            className="object-contain"
-          />
-        </div>
         
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative z-10">
@@ -227,20 +295,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        {/* Background Video for Story Section */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-10"
-          >
-            <source src="/video0.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
+      <section id="about" className="py-20 px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10 max-w-6xl mx-auto">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-8">NEURAL OVERRIDE</h2>
           
@@ -335,19 +390,6 @@ export default function Home() {
       </section>
 
       <section className="py-20 px-6 text-center relative overflow-hidden">
-        {/* Background Video for Section */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-20"
-          >
-            <source src="/video0.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-8">The Challenge Awaits</h2>
           <p className="mt-4 text-gray-300 max-w-2xl mx-auto mb-12">
@@ -427,20 +469,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-15"
-          >
-            <source src="/video0.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
+      <section id="schedule" className="py-20 px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-12">Event Details</h2>
           
@@ -534,20 +563,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-10"
-          >
-            <source src="/video0.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
+      <section id="rules" className="py-20 px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-12">Rules & Regulations</h2>
           
@@ -635,20 +651,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-15"
-          >
-            <source src="/video0.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
+      <section id="faq" className="py-20 px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-12">Frequently Asked Questions</h2>
           
