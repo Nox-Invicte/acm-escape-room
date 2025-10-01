@@ -836,8 +836,8 @@ export default function Home() {
                 Contact Us
               </h3>
               <div className="space-y-2 text-red-100">
-                <p>acm.sigapp@srm.edu</p>
-                <p>+91-XXXX-XXXXXX</p>
+                <p>srmacmsigapp@gmail.com</p>
+                <p>+91-8248537950</p>
                 <p>SRM Institute of Science and Technology</p>
                 <p>Kattankulathur, Chennai</p>
               </div>
