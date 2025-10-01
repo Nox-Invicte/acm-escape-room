@@ -139,6 +139,7 @@ const TechBackground = () => {
 export default function Home() {
   const targetDate = new Date("2025-10-14T23:59:59").getTime();
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -164,6 +165,20 @@ export default function Home() {
     };
   }, []);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen && !(event.target as Element).closest('nav')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
+
   return (
     <main className="min-h-screen bg-gray-800 text-white font-sans relative">
       {/* Consistent background image for all sections */}
@@ -179,27 +194,27 @@ export default function Home() {
 
       {/* Navigation Bar */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-red-600/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left side - Logos and ACM SIGAPP */}
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <div className="flex items-center space-x-2 md:space-x-3">
                 <Image
                   src="/srm.webp"
                   alt="SRM Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain"
+                  width={32}
+                  height={32}
+                  className="object-contain md:w-10 md:h-10"
                 />
                 <Image
                   src="/logo.jpg"
                   alt="ACM Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain"
+                  width={32}
+                  height={32}
+                  className="object-contain md:w-10 md:h-10"
                 />
               </div>
-              <div className="text-white font-bold text-lg">
+              <div className="text-white font-bold text-sm md:text-lg">
                 ACM SIGAPP
               </div>
             </div>
@@ -234,14 +249,82 @@ export default function Home() {
             
             {/* Mobile menu button */}
             <div className="md:hidden">
-              <button className="text-white hover:text-red-400 transition-colors duration-200">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white hover:text-red-400 transition-colors duration-200 p-2"
+                aria-label="Toggle mobile menu"
+              >
+                <svg 
+                  className="h-6 w-6" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
                 </svg>
               </button>
             </div>
           </div>
         </div>
+        
+        {/* Mobile menu panel */}
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="md:hidden absolute top-16 left-0 right-0 bg-black/95 backdrop-blur-md border-b border-red-600/30 z-40"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+          <div className="px-4 py-4 space-y-4">
+            <a 
+              href="#about" 
+              className="block text-white hover:text-red-400 transition-colors duration-200 py-2 border-b border-gray-800 relative group"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a 
+              href="#schedule" 
+              className="block text-white hover:text-red-400 transition-colors duration-200 py-2 border-b border-gray-800 relative group"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Schedule
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a 
+              href="#rules" 
+              className="block text-white hover:text-red-400 transition-colors duration-200 py-2 border-b border-gray-800 relative group"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Rules
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a 
+              href="#faq" 
+              className="block text-white hover:text-red-400 transition-colors duration-200 py-2 border-b border-gray-800 relative group"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              FAQ
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <a 
+              href="https://unstop.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 text-center mt-4"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Register Now
+            </a>
+          </div>
+        </motion.div>
+        )}
       </nav>
 
       <section className="relative h-screen flex flex-col justify-center items-center text-center px-6 overflow-hidden">
@@ -294,6 +377,13 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+      {/* Section separator border */}
+      <div className="relative">
+        <div className="h-1 bg-red-500 shadow-[0_0_20px_#ff0000]"></div>
+        <div className="h-px bg-red-400"></div>
+        <div className="h-2 bg-gradient-to-b from-red-500/50 to-transparent"></div>
+      </div>
 
       <section id="about" className="py-20 px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10 max-w-6xl mx-auto">
@@ -715,32 +805,106 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-          
-          {/* Help & Support Marquee */}
-          <Marquee
-            speed={40}
-            direction="right"
-            gradient={true}
-            gradientColor="rgb(127, 29, 29)"
-            gradientWidth={100}
-          >
-            {[
-              "❓ Still have questions? Contact us!",
-              "📧 acm.sigapp@srm.edu",
-              "📞 +91-XXXX-XXXXXX",
-              "💬 Join our Discord server",
-              "📱 Follow us on social media",
-              "🔔 Enable notifications for updates",
-              "📋 Check our detailed guidelines",
-              "🆘 24/7 support available"
-            ].map((text, index) => (
-              <div key={index} className="mx-5 text-red-200 text-lg font-medium whitespace-nowrap bg-red-800/50 px-6 py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
-                {text}
-              </div>
-            ))}
-          </Marquee>
         </div>
       </section>
+
+      {/* Footer Section */}
+      <footer className="relative z-10 bg-black/90 border-t border-red-600/30">
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          {/* Top border with glow */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_10px_#ff0000]"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Event Info */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
+                <span className="text-2xl mr-2">🎯</span>
+                Event Info
+              </h3>
+              <div className="space-y-2 text-red-100">
+                <p className="flex items-center"><Calendar className="w-4 h-4 mr-2 text-red-400" /> October 14, 2025</p>
+                <p className="flex items-center"><Clock className="w-4 h-4 mr-2 text-red-400" /> 24 Hours</p>
+                <p className="flex items-center"><MapPin className="w-4 h-4 mr-2 text-red-400" /> SRM University</p>
+                <p className="flex items-center"><Trophy className="w-4 h-4 mr-2 text-red-400" /> ₹10,000 Prize Pool</p>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
+                <span className="text-2xl mr-2">📧</span>
+                Contact Us
+              </h3>
+              <div className="space-y-2 text-red-100">
+                <p>acm.sigapp@srm.edu</p>
+                <p>+91-XXXX-XXXXXX</p>
+                <p>SRM Institute of Science and Technology</p>
+                <p>Kattankulathur, Chennai</p>
+              </div>
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
+                <span className="text-2xl mr-2">🔗</span>
+                Quick Links
+              </h3>
+              <div className="space-y-2">
+                <a href="#about" className="block text-red-100 hover:text-red-400 transition-colors duration-200">About</a>
+                <a href="#schedule" className="block text-red-100 hover:text-red-400 transition-colors duration-200">Schedule</a>
+                <a href="#rules" className="block text-red-100 hover:text-red-400 transition-colors duration-200">Rules</a>
+                <a href="#faq" className="block text-red-100 hover:text-red-400 transition-colors duration-200">FAQ</a>
+              </div>
+            </div>
+
+            {/* Social & Support */}
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
+                <span className="text-2xl mr-2">💬</span>
+                Connect
+              </h3>
+              <div className="space-y-3">
+                <a 
+                  href="https://unstop.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-center"
+                >
+                  Register Now
+                </a>
+                <p className="text-red-100 text-sm">Join our Discord server</p>
+                <p className="text-red-100 text-sm">Follow us on social media</p>
+                <p className="text-red-100 text-sm">24/7 support available</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom section */}
+          <div className="border-t border-red-600/30 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-4 mb-4 md:mb-0">
+              <Image
+                src="/srm.webp"
+                alt="SRM Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+              <Image
+                src="/logo.jpg"
+                alt="ACM Logo"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+              <span className="text-red-400 font-bold">ACM SIGAPP</span>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-red-200 text-sm">&copy; 2025 ACM SIGAPP SRM. All rights reserved.</p>
+              <p className="text-red-300 text-xs mt-1">Escape the ordinary. Code the extraordinary.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
