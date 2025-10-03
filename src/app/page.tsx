@@ -345,10 +345,21 @@ export default function Home() {
         
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative z-10">
+          {/* Powered by Unstop - moved to top */}
+          <div className="flex items-center justify-center mb-6">
+            <span className="text-white text-lg mr-3 drop-shadow-[0_0_15px_#FFFFFF]">Powered by</span>
+            <Image
+              src="/unstop.jpg"
+              alt="Unstop Logo"
+              width={100}
+              height={40}
+              className="object-contain"
+            />
+          </div>
+          
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-wide">
             <span className="block text-red-600 drop-shadow-[0_0_15px_#FFFFFF]">ESCAPE ROOM</span>
             <span className="block text-white drop-shadow-[0_0_25px_#FFFFFF]">SRM ACM SIGAPP</span>
-            <span className="block text-white text-base drop-shadow-[0_0_15px_#FFFFFF]">Powered by <span className="text-blue-400">Unstop</span></span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-gray-300">
             Where code meets mystery. Solve puzzles, build solutions, win prizes.
