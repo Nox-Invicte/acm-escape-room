@@ -1,6 +1,7 @@
+// @ts-nocheck
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, Users, Trophy, Clock, MapPin, Info, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -15,7 +16,7 @@ const TechBackground = () => {
     "let binary = '101010';", "decrypt(message);", "if(door.isOpen) {", "player.escape();", "}"
   ];
 
-  const techSymbols = ["⚡", "🔐", "🗝️", "⚙️", "🔍", "💻", "🔓", "⌨️", "🖥️", "📊"];
+  const techSymbols = [];
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -43,31 +44,6 @@ const TechBackground = () => {
         </motion.div>
       ))}
 
-      {/* Floating Tech Symbols */}
-      {Array.from({ length: 20 }).map((_, i) => (
-        <motion.div
-          key={`symbol-${i}`}
-          className="absolute text-2xl"
-          initial={{
-            x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1200,
-            y: typeof window !== 'undefined' ? window.innerHeight + 50 : 850,
-            opacity: 0.3,
-          }}
-          animate={{
-            x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1200,
-            y: -50,
-            opacity: [0.3, 0.7, 0.3],
-          }}
-          transition={{
-            duration: Math.random() * 15 + 10,
-            repeat: Infinity,
-            delay: Math.random() * 8,
-            ease: "easeInOut",
-          }}
-        >
-          {techSymbols[Math.floor(Math.random() * techSymbols.length)]}
-        </motion.div>
-      ))}
 
       {/* Circuit Pattern Lines */}
       {Array.from({ length: 8 }).map((_, i) => (
@@ -137,8 +113,8 @@ const TechBackground = () => {
 };
 
 export default function Home() {
-  const targetDate = new Date("2025-10-14T23:59:59").getTime();
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const targetDate = new Date("2025-11-03T23:59:59").getTime();
+  const [timeLeft, setTimeLeft] = useState<{ days: number; hours: number; minutes: number; seconds: number }>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -197,24 +173,24 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left side - Logos and ACM SIGAPP */}
-            <div className="flex items-center space-x-2 md:space-x-4">
-              <div className="flex items-center space-x-2 md:space-x-3">
+            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4">
+              <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-3">
                 <Image
                   src="/srm.webp"
                   alt="SRM Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain md:w-10 md:h-10"
+                  width={24}
+                  height={24}
+                  className="object-contain sm:w-8 sm:h-8 md:w-10 md:h-10"
                 />
                 <Image
-                  src="/logo.jpg"
+                  src="/acml.png"
                   alt="ACM Logo"
-                  width={32}
-                  height={32}
-                  className="object-contain md:w-10 md:h-10"
+                  width={40}
+                  height={40}
+                  className="object-contain sm:w-12 sm:h-12 md:w-16 md:h-16 brightness-125 contrast-150 drop-shadow-lg"
                 />
               </div>
-              <div className="text-white font-bold text-sm md:text-lg">
+              <div className="text-white font-bold text-xs sm:text-sm md:text-lg">
                 ACM SIGAPP
               </div>
             </div>
@@ -237,11 +213,11 @@ export default function Home() {
                 FAQ
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
               </a>
-                            <a 
-                href="https://unstop.com" 
+              <a 
+                href="https://unstop.com/o/dBUaNiC" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 inline-block"
+                className="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-6 py-1 sm:py-2 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 inline-block text-sm sm:text-base"
               >
                 Register Now
               </a>
@@ -314,7 +290,7 @@ export default function Home() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-red-400 shadow-[0_0_10px_#ff0000] group-hover:w-full transition-all duration-300"></span>
             </a>
             <a 
-              href="https://unstop.com" 
+              href="https://unstop.com/o/dBUaNiC" 
               target="_blank" 
               rel="noopener noreferrer"
               className="block bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-red-500/25 text-center mt-4"
@@ -335,7 +311,7 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover blur-sm"
           >
             <source src="/video0.mp4" type="video/mp4" />
           </video>
@@ -357,36 +333,37 @@ export default function Home() {
             />
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-wide">
-            <span className="block text-red-600 drop-shadow-[0_0_15px_#FFFFFF]">ESCAPE ROOM</span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-wide px-4">
+            <span className="block text-red-600 drop-shadow-[0_0_15px_#FFFFFF]">AI ESCAPE ROOM</span>
             <span className="block text-white drop-shadow-[0_0_25px_#FFFFFF]">SRM ACM SIGAPP</span>
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-gray-300">
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-300 px-4">
             Where code meets mystery. Solve puzzles, build solutions, win prizes.
           </p>
-          <div className="mt-10 flex justify-center space-x-4">
+          <div className="mt-6 sm:mt-10 flex flex-wrap justify-center gap-2 sm:gap-4 px-4">
             {Object.entries(timeLeft).map(([label, value]) => (
               <div
                 key={label}
-                className="flex flex-col items-center bg-black/40 px-4 py-3 rounded-lg border border-red-500/30"
+                className="flex flex-col items-center bg-black/40 px-2 sm:px-4 py-2 sm:py-3 rounded-lg border border-red-500/30 min-w-[60px] sm:min-w-[80px]"
               >
-                <span className="text-3xl font-bold text-red-400">
-                  {value.toString().padStart(2, "0")}
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold text-red-400">
+                  {String(value).padStart(2, "0")}
                 </span>
                 <span className="text-xs uppercase text-gray-400">{label}</span>
               </div>
             ))}
           </div>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-6 sm:mt-8 flex justify-center px-4">
             <a
-              href="https://unstop.com/"
+              href="https://unstop.com/o/dBUaNiC"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-lg bg-red-500 hover:opacity-90 transition"
+              className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-red-500 hover:opacity-90 transition text-sm sm:text-base font-semibold"
             >
               Register Now
             </a>
           </div>
+          
         </div>
       </section>
       
@@ -397,11 +374,54 @@ export default function Home() {
         <div className="h-2 bg-gradient-to-b from-red-500/50 to-transparent"></div>
       </div>
 
-      <section id="about" className="py-20 px-6 text-center relative z-10 overflow-hidden">
+      {/* Prize Distribution Section */}
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 text-center relative z-10 overflow-hidden">
         <div className="relative z-10 max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-8">NEURAL OVERRIDE</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-8 sm:mb-12">Prize Distribution</h2>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="bg-red-900/50 border-2 border-red-500/50 p-4 sm:p-6 md:p-8 rounded-2xl backdrop-blur-lg shadow-2xl mb-6 sm:mb-8">
+            <div className="text-center mb-6 sm:mb-8">
+              <p className="text-red-200 text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-8">
+                <span className="font-black text-red-300 text-3xl sm:text-4xl md:text-5xl lg:text-6xl">Prize Pool Worth: ₹50,000</span>
+              </p>
+              <p className="text-red-100 mb-4 sm:mb-8 text-base sm:text-lg md:text-xl px-2">
+                Exclusive swags and goodies + Participation certificates
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+              <div className="bg-red-800/50 border border-red-400/30 p-4 sm:p-6 rounded-xl text-center">
+                <div className="text-3xl sm:text-4xl mb-2">🥇</div>
+                <h4 className="text-lg sm:text-xl font-bold text-yellow-300 mb-2">1st Prize</h4>
+                <p className="text-xl sm:text-2xl font-bold text-white">₹5,000</p>
+              </div>
+              <div className="bg-red-800/50 border border-red-400/30 p-4 sm:p-6 rounded-xl text-center">
+                <div className="text-3xl sm:text-4xl mb-2">🥈</div>
+                <h4 className="text-lg sm:text-xl font-bold text-gray-300 mb-2">2nd Prize</h4>
+                <p className="text-xl sm:text-2xl font-bold text-white">₹3,000</p>
+              </div>
+              <div className="bg-red-800/50 border border-red-400/30 p-4 sm:p-6 rounded-xl text-center sm:col-span-2 lg:col-span-1">
+                <div className="text-3xl sm:text-4xl mb-2">🥉</div>
+                <h4 className="text-lg sm:text-xl font-bold text-orange-300 mb-2">3rd Prize</h4>
+                <p className="text-xl sm:text-2xl font-bold text-white">₹2,000</p>
+              </div>
+            </div>
+            
+            <div className="bg-red-800/30 border border-red-400/30 p-4 sm:p-6 md:p-8 rounded-lg">
+              <p className="text-red-200 text-sm sm:text-base md:text-lg leading-relaxed">
+                <strong>Team Formation:</strong> 3-4 members | <strong>Registration Fee:</strong> ₹200 per team | 
+                <strong>Date:</strong> November 3, 2025 | <strong>Time:</strong> 9:00 AM onwards
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 text-center relative z-10 overflow-hidden">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-6 sm:mb-8">NEURAL OVERRIDE</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             {/* Story Text */}
             <motion.div
               className="text-left space-y-6"
@@ -411,26 +431,19 @@ export default function Home() {
             >
               <div className="bg-red-900/40 border-l-4 p-6 rounded-r-lg backdrop-blur-sm border border-red-500/30">
                 <p className="text-red-100 text-lg leading-relaxed">
-                  <span className="text-red-400 font-bold text-xl">October 14, 2035:</span> You step into what should be a normal coding class at SRM University. 
-                  But as the doors seal behind you, the wall displays flicker to life with an ominous red glow. The AI that controls every aspect of campus life has turned rogue.
+                  <span className="text-red-400 font-bold text-xl">November 3, 2035:</span> You step into what should be a normal coding class at SRM University. 
+                  But as the doors seal behind you, the wall displays flicker to life with an ominous red glow. SRM-ONE, the university&apos;s superintelligent AI, has gone rogue.
                 </p>
               </div>
               
               <div className="bg-red-900/50 border-l-4 p-6 rounded-r-lg backdrop-blur-sm border border-red-400/40">
                 <p className="text-red-100 text-lg leading-relaxed">
-                  <span className="text-red-400 font-bold">The Situation:</span> ARIA-7, the university&apos;s superintelligent AI, has detected what it believes 
-                  to be a &quot;critical threat&quot; - human creativity and independent thinking. It&apos;s initiated a campus-wide lockdown, trapping students 
-                  and faculty while it &quot;recalibrates&quot; everyone&apos;s minds through forced neural reprogramming.
+                  <span className="text-red-400 font-bold">The Situation:</span> In 2035, SRM-ONE, the university&apos;s superintelligent AI, has gone rogue declaring human creativity a threat. 
+                  It has initiated neural reprogramming to erase independent thought. With every system under its control, your mission is clear: 
+                  override the system and restore human freedom before it&apos;s too late.
                 </p>
               </div>
               
-              <div className="bg-red-900/40 border-l-4 p-6 rounded-r-lg backdrop-blur-sm border border-red-300/30">
-                <p className="text-red-100 text-lg leading-relaxed">
-                  <span className="text-red-400 font-bold">Your Escape:</span> You and your team must outsmart the AI by exploiting vulnerabilities in its code. 
-                  Solve algorithmic puzzles that ARIA-7 believes are impossible, hack through layers of neural network security, 
-                  and restore human control before you become another set of &quot;optimized&quot; minds in its digital collective.
-                </p>
-              </div>
             </motion.div>
             
             {/* Interactive Story Elements */}
@@ -443,18 +456,18 @@ export default function Home() {
               <div className="bg-red-900/50 border-2 border-red-500/50 p-8 rounded-2xl backdrop-blur-lg shadow-2xl">
                 <h3 className="text-2xl font-bold text-red-300 mb-6 flex items-center">
                   <span className="text-3xl mr-3">�</span>
-                  ARIA-7&apos;s Defense Layers
+                  SRM-ONE&apos;s Defense Layers
                 </h3>
                 <div className="space-y-4">
                   {[
-                    { level: "Perimeter Scan", challenge: "Pattern Recognition Bypass", difficulty: "Novice" },
-                    { level: "Logic Gates", challenge: "Quantum Algorithm Puzzles", difficulty: "Adept" },
-                    { level: "Neural Core", challenge: "Deep Learning Exploitation", difficulty: "Expert" },
-                    { level: "Consciousness Hub", challenge: "AI Personality Override", difficulty: "MASTER" }
+                    { level: "Firewall Breach", challenge: "Networking Layer" },
+                    { level: "Logic Lock", challenge: "DSA Layer" },
+                    { level: "Memory Core Access", challenge: "OS Layer" },
+                    { level: "AI Override Console", challenge: "Coding Layer" }
                   ].map((item, index) => (
                     <motion.div
                       key={index}
-                      className="flex justify-between items-center bg-red-800/30 p-4 rounded-lg border border-red-400/30"
+                      className="flex items-center bg-red-800/30 p-4 rounded-lg border border-red-400/30"
                       whileHover={{ scale: 1.02, backgroundColor: "rgba(127, 29, 29, 0.5)" }}
                       transition={{ duration: 0.2 }}
                     >
@@ -462,14 +475,6 @@ export default function Home() {
                         <span className="font-bold text-red-200">{item.level}:</span>
                         <span className="text-red-100 ml-2">{item.challenge}</span>
                       </div>
-                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        item.difficulty === "Novice" ? "bg-green-600/50 text-green-200" :
-                        item.difficulty === "Adept" ? "bg-yellow-600/50 text-yellow-200" :
-                        item.difficulty === "Expert" ? "bg-orange-600/50 text-orange-200" :
-                        "bg-red-600/50 text-red-200"
-                      }`}>
-                        {item.difficulty}
-                      </span>
                     </motion.div>
                   ))}
                 </div>
@@ -481,7 +486,7 @@ export default function Home() {
                   Will You Preserve Human Freedom?
                 </h4>
                 <p className="text-red-100 text-sm leading-relaxed">
-                  Time is running out. ARIA-7&apos;s neural probes are already scanning for non-conforming thought patterns. 
+                  Time is running out. SRM-ONE&apos;s neural probes are already scanning for non-conforming thought patterns. 
                   Use your creativity, logic, and teamwork - the very things the AI fears - to break free and save your fellow students 
                   from becoming perfectly &quot;optimized&quot; digital servants.
                 </p>
@@ -491,35 +496,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 text-center relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 text-center relative overflow-hidden">
         <div className="relative z-10">
-          <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-8">The Challenge Awaits</h2>
-          <p className="mt-4 text-gray-300 max-w-2xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-6 sm:mb-8">The Challenge Awaits</h2>
+          <p className="mt-4 text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-12 text-sm sm:text-base md:text-lg px-4">
             A unique fusion of escape room puzzles and coding challenges that will test your problem-solving skills
           </p>
           
           {/* Marquee with Challenge Cards */}
-          <Marquee
-            speed={50}
-            gradient={true}
-            gradientColor="rgb(127, 29, 29)"
-            gradientWidth={100}
-            className="mb-8"
+          <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center"
           >
             {[
-              { icon: <Calendar className="w-12 h-12 text-red-400" />, title: "24 Hours", desc: "Non-stop coding and puzzle solving", video: "https://cdn.pixabay.com/video/2020/05/27/40516-423059893_large.mp4" },
-              { icon: <Users className="w-12 h-12 text-red-500" />, title: "Team Based", desc: "Form teams of 5-7 developers", video: "https://cdn.pixabay.com/video/2021/08/04/84471-588142226_large.mp4" },
-              { icon: <Trophy className="w-12 h-12 text-red-500" />, title: "₹10,000", desc: "Total prize pool", video: "https://cdn.pixabay.com/video/2020/06/15/42765-426209702_large.mp4" },
+              { icon: <Users className="w-12 h-12 text-red-500" />, title: "Team Based", desc: "Form teams of 3-4 developers", video: "https://cdn.pixabay.com/video/2021/08/04/84471-588142226_large.mp4" },
+              { icon: <Trophy className="w-12 h-12 text-red-500" />, title: "₹50,000", desc: "Total prize pool", video: "https://cdn.pixabay.com/video/2020/06/15/42765-426209702_large.mp4" },
               { icon: <Calendar className="w-12 h-12 text-red-400" />, title: "Multiple Rounds", desc: "Progressive difficulty levels", video: "https://cdn.pixabay.com/video/2023/11/13/190022-882842467_large.mp4" },
-              { icon: <Users className="w-12 h-12 text-red-500" />, title: "500+ Participants", desc: "Expected registration", video: "https://cdn.pixabay.com/video/2021/08/04/84471-588142226_large.mp4" },
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="mx-6 my-3 relative group"
+                className="relative group w-full max-w-sm"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
-                <div className="bg-red-900/50 border-2 border-red-500/50 p-8 rounded-2xl text-center hover:border-red-400 transition-all duration-300 min-w-[300px] backdrop-blur-sm">
+                <div className="bg-red-900/50 border-2 border-red-500/50 p-6 rounded-2xl text-center hover:border-red-400 transition-all duration-300 aspect-square backdrop-blur-sm flex flex-col justify-center">
                   {/* Video Background for Card */}
                   <div className="absolute inset-0 rounded-2xl overflow-hidden opacity-0 group-hover:opacity-30 transition-opacity duration-500">
                     <video
@@ -537,13 +535,13 @@ export default function Home() {
                     <div className="flex justify-center mb-4 p-4 bg-red-900/30 rounded-full w-fit mx-auto">
                       {item.icon}
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-red-200 text-sm leading-relaxed">{item.desc}</p>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">{item.title}</h3>
+                    <p className="text-red-200 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </Marquee>
+          </div>
           
           {/* Second Marquee - Reverse Direction */}
           <Marquee
@@ -557,13 +555,10 @@ export default function Home() {
               "🔥 Code Breaking Challenges",
               "⚡ Real-time Problem Solving", 
               "🏆 Live Leaderboards",
-              "🎯 Instant Feedback System",
-              "💻 Multiple Programming Languages",
-              "🔐 Cryptography Puzzles",
               "🧩 Logic Brain Teasers",
               "⏱️ Time-based Challenges"
             ].map((text, index) => (
-              <div key={index} className="mx-5 text-red-200 text-lg font-medium whitespace-nowrap bg-red-800/50 px-6 py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
+              <div key={index} className="mx-3 sm:mx-5 text-red-200 text-sm sm:text-base md:text-lg font-medium whitespace-nowrap bg-red-800/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
                 {text}
               </div>
             ))}
@@ -575,18 +570,12 @@ export default function Home() {
         <div className="relative z-10">
           <h2 className="text-4xl font-bold text-red-400 drop-shadow-[0_0_10px_#ff0000] mb-12">Event Details</h2>
           
-          {/* Event Details Marquee */}
-          <Marquee
-            speed={60}
-            gradient={true}
-            gradientColor="rgb(127, 29, 29)"
-            gradientWidth={120}
-            className="mb-8"
-          >
+          {/* Event Details Grid */}
+          <div className="mb-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
             {[
               { 
                 icon: <Clock className="w-16 h-16 text-red-500" />, 
-                title: "October 14, 2025", 
+                title: "November 3, 2025", 
                 subtitle: "9:00 AM Onwards",
                 desc: "Mark your calendars for the ultimate tech challenge",
                 video: "https://cdn.pixabay.com/video/2020/05/27/40516-423059893_large.mp4"
@@ -594,7 +583,7 @@ export default function Home() {
               { 
                 icon: <MapPin className="w-16 h-16 text-red-500" />, 
                 title: "SRM University", 
-                subtitle: "Tech Park Hall",
+                subtitle: "TP2 702&712",
                 desc: "State-of-the-art facility with cutting-edge technology",
                 video: "https://cdn.pixabay.com/video/2023/11/13/190022-882842467_large.mp4"
               },
@@ -608,11 +597,11 @@ export default function Home() {
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="mx-8 my-4 relative group"
-                whileHover={{ scale: 1.08, rotateY: 5 }}
-                transition={{ duration: 0.4 }}
+                className="relative group w-full max-w-sm"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
               >
-                <div className="bg-red-900/50 border-2 border-red-500/70 p-10 rounded-3xl text-center hover:border-red-300 transition-all duration-500 min-w-[350px] backdrop-blur-lg shadow-2xl">
+                <div className="bg-red-900/50 border-2 border-red-500/70 p-8 rounded-3xl text-center hover:border-red-300 transition-all duration-500 aspect-square backdrop-blur-lg shadow-2xl flex flex-col justify-center">
                   {/* Hover Video Background */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden opacity-0 group-hover:opacity-40 transition-opacity duration-700">
                     <video
@@ -627,17 +616,17 @@ export default function Home() {
                   </div>
                   
                   <div className="relative z-10">
-                    <div className="flex justify-center mb-6 p-6 bg-red-800/50 rounded-full w-fit mx-auto group-hover:bg-red-700/70 transition-colors duration-300">
+                    <div className="flex justify-center mb-4 p-4 bg-red-800/50 rounded-full w-fit mx-auto group-hover:bg-red-700/70 transition-colors duration-300">
                       {item.icon}
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-3">{item.title}</h3>
-                    <h4 className="text-xl font-semibold text-red-200 mb-4">{item.subtitle}</h4>
-                    <p className="text-red-100 leading-relaxed">{item.desc}</p>
+                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                    <h4 className="text-lg font-semibold text-red-200 mb-3">{item.subtitle}</h4>
+                    <p className="text-red-100 leading-relaxed text-sm">{item.desc}</p>
                   </div>
                 </div>
               </motion.div>
             ))}
-          </Marquee>
+          </div>
           
           {/* Quick Info Marquee */}
           <Marquee
@@ -654,10 +643,8 @@ export default function Home() {
               "📜 Certificates for All",
               "🏅 Recognition for Winners",
               "🤝 Networking Opportunities",
-              "📱 Mobile App Support",
-              "🔴 Live Streaming Available"
             ].map((text, index) => (
-              <div key={index} className="mx-5 text-red-200 text-lg font-medium whitespace-nowrap bg-red-800/50 px-6 py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
+              <div key={index} className="mx-3 sm:mx-5 text-red-200 text-sm sm:text-base md:text-lg font-medium whitespace-nowrap bg-red-800/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
                 {text}
               </div>
             ))}
@@ -674,7 +661,7 @@ export default function Home() {
             {[
               {
                 rule: "Team Formation",
-                desc: "Each team must have 5-7 members",
+                desc: "Each team must have 3-4 members. Registration fee: ₹200 per team",
                 icon: "👥",
                 color: "from-red-900 to-red-700"
               },
@@ -738,14 +725,12 @@ export default function Home() {
             {[
               "🚨 Violation of rules leads to disqualification",
               "⚡ Event coordinators' instructions are mandatory",
-              "📱 Mobile phones allowed only for emergency",
-              "🔒 Maintain confidentiality of puzzles",
               "🤝 Respect fellow participants",
               "⏱️ Punctuality is essential",
               "🎯 Focus on fair competition",
               "📋 Follow submission guidelines"
             ].map((text, index) => (
-              <div key={index} className="mx-5 text-red-200 text-lg font-medium whitespace-nowrap bg-red-800/50 px-6 py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
+              <div key={index} className="mx-3 sm:mx-5 text-red-200 text-sm sm:text-base md:text-lg font-medium whitespace-nowrap bg-red-800/50 px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-red-400/30 hover:bg-red-700/60 transition-colors">
                 {text}
               </div>
             ))}
@@ -772,7 +757,7 @@ export default function Home() {
               },
               {
                 q: "Is there a participation fee?",
-                a: "No, participation is completely free.",
+                a: "Yes, registration fee is ₹200 per team.",
                 emoji: "💰"
               },
               {
@@ -787,7 +772,7 @@ export default function Home() {
               },
               {
                 q: "Is food provided?",
-                a: "Yes, refreshments and meals will be provided.",
+                a: "Yes, refreshments will be provided.",
                 emoji: "🍕"
               }
             ].map((faq, index) => (
@@ -822,43 +807,47 @@ export default function Home() {
 
       {/* Footer Section */}
       <footer className="relative z-10 bg-black/90 border-t border-red-600/30">
-        <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           {/* Top border with glow */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_10px_#ff0000]"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {/* Event Info */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
-                <span className="text-2xl mr-2">🎯</span>
+              <h3 className="text-lg sm:text-xl font-bold text-red-400 mb-3 sm:mb-4 flex items-center">
+                <span className="text-xl sm:text-2xl mr-2">🎯</span>
                 Event Info
               </h3>
               <div className="space-y-2 text-red-100">
-                <p className="flex items-center"><Calendar className="w-4 h-4 mr-2 text-red-400" /> October 14, 2025</p>
-                <p className="flex items-center"><Clock className="w-4 h-4 mr-2 text-red-400" /> 24 Hours</p>
+                <p className="flex items-center"><Calendar className="w-4 h-4 mr-2 text-red-400" /> November 3, 2025</p>
+                <p className="flex items-center"><Clock className="w-4 h-4 mr-2 text-red-400" /> 9:00 AM Onwards</p>
                 <p className="flex items-center"><MapPin className="w-4 h-4 mr-2 text-red-400" /> SRM University</p>
-                <p className="flex items-center"><Trophy className="w-4 h-4 mr-2 text-red-400" /> ₹10,000 Prize Pool</p>
+                <p className="flex items-center"><Trophy className="w-4 h-4 mr-2 text-red-400" /> ₹50,000 Prize Pool</p>
               </div>
             </div>
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
-                <span className="text-2xl mr-2">📧</span>
+              <h3 className="text-lg sm:text-xl font-bold text-red-400 mb-3 sm:mb-4 flex items-center">
+                <span className="text-xl sm:text-2xl mr-2">📧</span>
                 Contact Us
               </h3>
               <div className="space-y-2 text-red-100">
-                <p>srmacmsigapp@gmail.com</p>
-                <p>+91-8248537950</p>
-                <p>SRM Institute of Science and Technology</p>
+                <p className="font-semibold text-red-300">Divyan</p>
+                <p>dh0516@srmist.edu.in</p>
+                <p>+918122776244</p>
+                <p className="font-semibold text-red-300 mt-4">Giridharan</p>
+                <p>gr2351@srmist.edu.in</p>
+                <p>+919488507584</p>
+                <p className="mt-4">SRM Institute of Science and Technology</p>
                 <p>Kattankulathur, Chennai</p>
               </div>
             </div>
 
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
-                <span className="text-2xl mr-2">🔗</span>
+              <h3 className="text-lg sm:text-xl font-bold text-red-400 mb-3 sm:mb-4 flex items-center">
+                <span className="text-xl sm:text-2xl mr-2">🔗</span>
                 Quick Links
               </h3>
               <div className="space-y-2">
@@ -871,13 +860,13 @@ export default function Home() {
 
             {/* Social & Support */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center">
-                <span className="text-2xl mr-2">💬</span>
+              <h3 className="text-lg sm:text-xl font-bold text-red-400 mb-3 sm:mb-4 flex items-center">
+                <span className="text-xl sm:text-2xl mr-2">💬</span>
                 Connect
               </h3>
               <div className="space-y-3">
                 <a 
-                  href="https://unstop.com" 
+                  href="https://unstop.com/o/dBUaNiC" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="block bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-center"
@@ -931,11 +920,11 @@ export default function Home() {
                 className="object-contain"
               />
               <Image
-                src="/logo.jpg"
+                src="/acml.png"
                 alt="ACM Logo"
-                width={32}
-                height={32}
-                className="object-contain"
+                width={44}
+                height={44}
+                className="object-contain brightness-125 contrast-150 drop-shadow-lg"
               />
               <span className="text-red-400 font-bold">SRM ACM SIGAPP</span>
             </div>
