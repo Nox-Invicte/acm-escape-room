@@ -183,11 +183,11 @@ export default function Home() {
                   className="object-contain sm:w-8 sm:h-8 md:w-10 md:h-10"
                 />
                 <Image
-                  src="/logo.jpg"
+                  src="/acml.png"
                   alt="ACM Logo"
-                  width={24}
-                  height={24}
-                  className="object-contain sm:w-8 sm:h-8 md:w-10 md:h-10"
+                  width={40}
+                  height={40}
+                  className="object-contain sm:w-12 sm:h-12 md:w-16 md:h-16 brightness-125 contrast-150 drop-shadow-lg"
                 />
               </div>
               <div className="text-white font-bold text-xs sm:text-sm md:text-lg">
@@ -920,11 +920,11 @@ export default function Home() {
                 className="object-contain"
               />
               <Image
-                src="/logo.jpg"
+                src="/acml.png"
                 alt="ACM Logo"
-                width={32}
-                height={32}
-                className="object-contain"
+                width={44}
+                height={44}
+                className="object-contain brightness-125 contrast-150 drop-shadow-lg"
               />
               <span className="text-red-400 font-bold">SRM ACM SIGAPP</span>
             </div>
