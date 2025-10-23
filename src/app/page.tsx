@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,38 +8,65 @@ import Marquee from "react-fast-marquee";
 
 // Animated background components
 const TechBackground = () => {
-  const codeSnippets = [
-    "function escape() {", "if (puzzle.solved) {", "return victory;", "} else {", "tryAgain();", "}",
-    "const mystery = {", "clue: 'hidden',", "solution: 'code'", "};", "for(let i=0; i<10; i++){", "decode(cipher[i]);",
-    "while(locked) {", "findKey();", "}", "class EscapeRoom {", "solve() {", "this.unlock();", "}",
-    "let binary = '101010';", "decrypt(message);", "if(door.isOpen) {", "player.escape();", "}"
-  ];
+  const [isClient, setIsClient] = useState(false);
+  const [randomValues, setRandomValues] = useState<{
+    codePositions: Array<{x: number, y: number, endX: number, endY: number, duration: number, delay: number}>;
+    codeSnippets: string[];
+  }>({
+    codePositions: [],
+    codeSnippets: []
+  });
 
-  const techSymbols = [];
+  useEffect(() => {
+    const codeSnippets = [
+      "function escape() {", "if (puzzle.solved) {", "return victory;", "} else {", "tryAgain();", "}",
+      "const mystery = {", "clue: 'hidden',", "solution: 'code'", "};", "for(let i=0; i<10; i++){", "decode(cipher[i]);",
+      "while(locked) {", "findKey();", "}", "class EscapeRoom {", "solve() {", "this.unlock();", "}",
+      "let binary = '101010';", "decrypt(message);", "if(door.isOpen) {", "player.escape();", "}"
+    ];
+    
+    setIsClient(true);
+    const positions = Array.from({ length: 15 }).map(() => ({
+      x: -100,
+      y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+      endX: (typeof window !== 'undefined' ? window.innerWidth : 1200) + 100,
+      endY: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+      duration: Math.random() * 20 + 10,
+      delay: Math.random() * 10,
+    }));
+    const snippets = Array.from({ length: 15 }).map(() => 
+      codeSnippets[Math.floor(Math.random() * codeSnippets.length)]
+    );
+    setRandomValues({ codePositions: positions, codeSnippets: snippets });
+  }, []);
+
+  if (!isClient) {
+    return <div className="absolute inset-0 overflow-hidden pointer-events-none" />;
+  }
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Floating Code Snippets */}
-      {Array.from({ length: 15 }).map((_, i) => (
+      {randomValues.codePositions.map((pos, i) => (
         <motion.div
           key={`code-${i}`}
           className="absolute text-xs md:text-sm font-mono text-red-400/30 whitespace-nowrap"
           initial={{
-            x: -100,
-            y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : Math.random() * 800,
+            x: pos.x,
+            y: pos.y,
           }}
           animate={{
-            x: typeof window !== 'undefined' ? window.innerWidth + 100 : 1200,
-            y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : Math.random() * 800,
+            x: pos.endX,
+            y: pos.endY,
           }}
           transition={{
-            duration: Math.random() * 20 + 10,
+            duration: pos.duration,
             repeat: Infinity,
-            delay: Math.random() * 10,
+            delay: pos.delay,
             ease: "linear",
           }}
         >
-          {codeSnippets[Math.floor(Math.random() * codeSnippets.length)]}
+          {randomValues.codeSnippets[i]}
         </motion.div>
       ))}
 
@@ -51,7 +77,7 @@ const TechBackground = () => {
           key={`circuit-${i}`}
           className="absolute h-px bg-gradient-to-r from-transparent via-red-500/20 to-transparent"
           style={{
-            top: `${Math.random() * 100}%`,
+            top: `${(i * 12.5) + (i % 2) * 5}%`,
             width: "100%",
           }}
           initial={{ scaleX: 0, opacity: 0 }}
@@ -71,8 +97,8 @@ const TechBackground = () => {
           key={`glitch-${i}`}
           className="absolute w-20 h-20 border border-red-500/20 rotate-45"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${(i * 20) + (i % 2) * 10}%`,
+            top: `${(i * 20) + (i % 3) * 15}%`,
           }}
           animate={{
             rotate: [45, 225, 45],
@@ -94,18 +120,18 @@ const TechBackground = () => {
           key={`binary-${i}`}
           className="absolute text-red-400/20 font-mono text-xs"
           style={{
-            left: `${(i * 10) + Math.random() * 10}%`,
+            left: `${(i * 10) + (i % 3) * 3}%`,
           }}
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: typeof window !== 'undefined' ? window.innerHeight + 50 : 850, opacity: [0, 0.8, 0] }}
           transition={{
-            duration: Math.random() * 8 + 5,
+            duration: (i % 3) * 3 + 5,
             repeat: Infinity,
-            delay: Math.random() * 3,
+            delay: (i % 4) * 0.8,
             ease: "linear",
           }}
         >
-          {Array.from({ length: 20 }, () => Math.random() > 0.5 ? '1' : '0').join('')}
+          {Array.from({ length: 20 }, (_, j) => (i + j) % 2 ? '1' : '0').join('')}
         </motion.div>
       ))}
     </div>
