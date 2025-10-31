@@ -435,7 +435,7 @@ export default function Home() {
             
             <div className="bg-red-800/30 border border-red-400/30 p-4 sm:p-6 md:p-8 rounded-lg">
               <p className="text-red-200 text-sm sm:text-base md:text-lg leading-relaxed">
-                <strong>Team Formation:</strong> 3-4 members | <strong>Registration Fee:</strong> ₹200 per team | 
+                <strong>Team Formation:</strong> 3-4 members | <strong>Registration Fee:</strong> Free | 
                 <strong>Date:</strong> November 3, 2025 | <strong>Time:</strong> 9:00 AM onwards
               </p>
             </div>
@@ -687,7 +687,7 @@ export default function Home() {
             {[
               {
                 rule: "Team Formation",
-                desc: "Each team must have 3-4 members. Registration fee: ₹200 per team",
+                desc: "Each team must have 3-4 members. Registration fee: Free",
                 icon: "👥",
                 color: "from-red-900 to-red-700"
               },
@@ -783,7 +783,7 @@ export default function Home() {
               },
               {
                 q: "Is there a participation fee?",
-                a: "Yes, registration fee is ₹200 per team.",
+                a: "No, Registration is free.",
                 emoji: "💰"
               },
               {
